@@ -10,6 +10,8 @@ pipeline {
 				}
 			}
 			steps {
+			    sh 'pwd'
+			    sh 'mvn --version'
 				sh 'mvn clean install'
 			}
 		}
