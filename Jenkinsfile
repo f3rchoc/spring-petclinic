@@ -3,18 +3,18 @@ pipeline {
 	agent none
 	stages {
 		stage('Maven Install') {
-		agent {
+		    agent {
 				docker {
 					image 'maven:3.5.0'
-					args '-v /var/run/docker.sock:/var/run/docker.sock'
+					alwaysPull true
 				}
 			}
-			steps {
-			    sh 'pwd'
-			    sh 'mvn --version'
-				sh 'mvn clean install'
-			}
 		}
+		stage('Build') {
+            steps {
+                sh 'mvn clean install'
+            }
+        }
 		stage('Docker Build') {
 			agent any
 			steps {
