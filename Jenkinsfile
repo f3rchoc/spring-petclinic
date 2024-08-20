@@ -9,17 +9,22 @@ pipeline {
 					alwaysPull true
 				}
 			}
-		}
-		stage('Build') {
-            steps {
-                sh 'mvn clean install'
-            }
-        }
-		stage('Docker Build') {
-			agent any
 			steps {
-				sh 'docker build -t grupo02/spring-petclinic:latest .'
+			    sh 'pwd'
+// 			    sh 'mvn --version'
+// 				sh 'mvn clean install'
 			}
 		}
+// 		stage('Build') {
+//             steps {
+//                 sh 'mvn -B -DskipTests clean package'
+//             }
+//         }
+// 		stage('Docker Build') {
+// 			agent any
+// 			steps {
+// 				sh 'docker build -t grupo02/spring-petclinic:latest .'
+// 			}
+// 		}
 	}
 }
