@@ -6,7 +6,7 @@ pipeline {
 		agent {
 				docker {
 					image 'maven:3.5.0'
-					alwaysPull true
+					args '-v /var/run/docker.sock:/var/run/docker.sock'
 				}
 			}
 			steps {
