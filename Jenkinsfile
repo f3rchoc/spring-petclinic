@@ -8,17 +8,13 @@ pipeline {
                 }
             }
             steps {
-                sh 'mvn clean'
+                sh 'mvn clean install'
             }
         }
         stage ('Maven test') {
+            agent any
             steps {
-                sh 'mvn test'
-            }
-        }
-        stage ('Maven build') {
-            steps {
-                sh 'mvn install -DskipTests'
+                sh 'mvn test -DfailIfNoTests'
             }
         }
         stage('Docker Build') {
