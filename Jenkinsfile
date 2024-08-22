@@ -14,6 +14,7 @@ pipeline {
             }
         }
         stage ('Maven test') {
+            agent any
 //              agent {
 //                 docker {
 //                     image 'maven:3.5.0'
