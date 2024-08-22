@@ -5,23 +5,24 @@ pipeline {
             agent {
                 docker {
                     image 'maven:3.5.0'
+                    reuseNode true
                 }
             }
             steps {
                 sh 'mvn clean install'
-                sh 'mvn test -DfailIfNoTests'
+//                 sh 'mvn test -DfailIfNoTests'
             }
         }
-//         stage ('Maven test') {
+        stage ('Maven test') {
 //              agent {
 //                 docker {
 //                     image 'maven:3.5.0'
 //                 }
 //             }
-//             steps {
-//                 sh 'mvn test -DfailIfNoTests'
-//             }
-//         }
+            steps {
+                sh 'mvn test -DfailIfNoTests'
+            }
+        }
         stage('Docker Build') {
             agent any
             steps {
