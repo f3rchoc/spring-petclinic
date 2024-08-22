@@ -12,7 +12,11 @@ pipeline {
             }
         }
         stage ('Maven test') {
-            agent any
+             agent {
+                docker {
+                    image 'maven:3.5.0'
+                }
+            }
             steps {
                 sh 'mvn test -DfailIfNoTests'
             }
