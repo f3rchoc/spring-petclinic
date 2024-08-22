@@ -1,5 +1,8 @@
 pipeline {
-agent none
+agent {
+    label 'docker'
+  }
+// agent none
 stages {
 stage('Maven Install') {
 agent {
