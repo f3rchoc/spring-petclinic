@@ -21,10 +21,16 @@ pipeline {
                 }
             }
         }
-        stage('Deliver') {
+        stage('Docker Build') {
+            agent any
             steps {
-                sh './jenkins/scripts/deliver.sh'
+                sh 'docker build -t grupo02/spring-petclinic:latest .'
             }
         }
+//         stage('Deliver') {
+//             steps {
+//                 sh './jenkins/scripts/deliver.sh'
+//             }
+//         }
     }
 }
