@@ -1,5 +1,8 @@
 pipeline {
     agent none
+    environment {
+        CACHE_DIR = '/home/.m2/repository'
+    }
     stages {
         stage('Prepare Cache') {
             agent {
@@ -10,11 +13,9 @@ pipeline {
             }
             steps {
                 script {
-                    // Restore cache if exists
-                    def cacheDir = '.m2/repository'
-                    if (fileExists(cacheDir)) {
+                    if (fileExists(env.CACHE_DIR)) {
                         echo "Restoring cache..."
-                        sh "cp -r ${cacheDir} \$HOME/.m2/"
+                        sh "cp -r ${env.CACHE_DIR} \$HOME/.m2/"
                     }
                 }
             }
@@ -29,9 +30,7 @@ pipeline {
             steps {
                 sh 'mvn clean install'
                 script {
-                    // Save cache
-                    def cacheDir = '.m2/repository'
-                    sh "cp -r \$HOME/.m2/ ${cacheDir}"
+                    sh "cp -r \$HOME/.m2/ ${env.CACHE_DIR}"
                 }
             }
         }
@@ -50,6 +49,17 @@ pipeline {
             agent any
             steps {
                 sh 'docker build -t grupo02/spring-petclinic:latest .'
+            }
+        }
+        stage('Cleanup Cache') {
+            agent any
+            steps {
+                script {
+                    if (fileExists(env.CACHE_DIR)) {
+                        echo "Cleaning up cache..."
+                        sh "rm -rf ${env.CACHE_DIR}"
+                    }
+                }
             }
         }
     }
