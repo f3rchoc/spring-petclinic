@@ -10,7 +10,7 @@ pipeline {
             }
             steps {
                 // Cache Maven dependencies
-                cache(path: '.m2/repository', key: 'maven-dependencies') {
+                cache(includes: ['.m2/repository/**']) {
                     sh 'mvn clean install'
                 }
             }
@@ -24,7 +24,7 @@ pipeline {
             }
             steps {
                 // Reuse cached Maven dependencies
-                cache(path: '.m2/repository', key: 'maven-dependencies') {
+                cache(includes: ['.m2/repository/**']) {
                     sh 'mvn test -DfailIfNoTests'
                 }
             }
