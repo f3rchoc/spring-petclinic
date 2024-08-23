@@ -10,7 +10,11 @@ pipeline {
             }
             steps {
                 // Cache Maven dependencies
-                cache(includes: ['.m2/repository/**']) {
+                cache(
+                    path: '.m2/repository',
+                    key: 'maven-repo-cache',
+                    maxCacheSize: '2GB'
+                ) {
                     sh 'mvn clean install'
                 }
             }
@@ -24,7 +28,11 @@ pipeline {
             }
             steps {
                 // Reuse cached Maven dependencies
-                cache(includes: ['.m2/repository/**']) {
+                cache(
+                    path: '.m2/repository',
+                    key: 'maven-repo-cache',
+                    maxCacheSize: '2GB'
+                ) {
                     sh 'mvn test -DfailIfNoTests'
                 }
             }
