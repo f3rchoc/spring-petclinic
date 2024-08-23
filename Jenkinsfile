@@ -12,6 +12,11 @@ pipeline {
 				sh 'mvn clean '
 				sh 'mvn test install -U'
 			}
+			post {
+                always {
+                    junit 'target/surefire-reports/*.xml'
+                }
+            }
 		}
 		stage('Docker Build') {
 			agent any
