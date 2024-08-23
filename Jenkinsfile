@@ -27,10 +27,5 @@ pipeline {
                 sh 'docker build -t grupo02/spring-petclinic:latest .'
             }
         }
-//         stage('Deliver') {
-//             steps {
-//                 sh './jenkins/scripts/deliver.sh'
-//             }
-//         }
     }
 }
