@@ -13,7 +13,7 @@ pipeline {
                 cache(
                     path: '.m2/repository',
                     key: 'maven-repo-cache',
-//                     maxCacheSize: '2GB'
+                    maxCacheSize: 2147483648 // 2GB in bytes
                 ) {
                     sh 'mvn clean install'
                 }
@@ -31,7 +31,7 @@ pipeline {
                 cache(
                     path: '.m2/repository',
                     key: 'maven-repo-cache',
-//                     maxCacheSize: '2GB'
+                    maxCacheSize: 2147483648 // 2GB in bytes
                 ) {
                     sh 'mvn test -DfailIfNoTests'
                 }
