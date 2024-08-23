@@ -11,8 +11,7 @@ pipeline {
             steps {
                 // Cache Maven dependencies
                 cache(
-                    path: '.m2/repository',
-                    key: 'maven-repo-cache',
+                    caches: [cacheEntry(path: '.m2/repository', key: 'maven-repo-cache')],
                     maxCacheSize: 2147483648 // 2GB in bytes
                 ) {
                     sh 'mvn clean install'
@@ -29,8 +28,7 @@ pipeline {
             steps {
                 // Reuse cached Maven dependencies
                 cache(
-                    path: '.m2/repository',
-                    key: 'maven-repo-cache',
+                    caches: [cacheEntry(path: '.m2/repository', key: 'maven-repo-cache')],
                     maxCacheSize: 2147483648 // 2GB in bytes
                 ) {
                     sh 'mvn test -DfailIfNoTests'
