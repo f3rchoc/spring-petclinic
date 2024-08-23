@@ -9,7 +9,7 @@ pipeline {
 				}
 			}
 			steps {
-				sh 'mvn clean '
+				sh 'mvn clean'
 				sh 'mvn test install -U'
 			}
 			post {
